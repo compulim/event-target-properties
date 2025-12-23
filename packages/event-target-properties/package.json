@@ -3,6 +3,7 @@
   "version": "0.0.0-0",
   "description": "Wraps a React component as a custom element.",
   "files": [
+    "./*.js",
     "./dist/"
   ],
   "exports": {
