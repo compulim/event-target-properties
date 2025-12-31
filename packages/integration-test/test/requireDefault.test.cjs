@@ -1,7 +1,6 @@
-/// <reference types="mocha" />
-
-import { EventTargetProperties } from 'event-target-properties';
-import { expect } from 'expect';
+const { EventTargetProperties } = require('event-target-properties');
+const { expect } = require('expect');
+const { describe, mock, it } = require('node:test');
 
 class MyEventTarget extends EventTarget {
   constructor() {
@@ -21,23 +20,17 @@ class MyEventTarget extends EventTarget {
   }
 }
 
-describe('ES Modules', () => {
+describe('CommonJS', () => {
   it('should work', () => {
     const eventTarget = new MyEventTarget();
-    const onload = (/** @type {Event} */ event) => {
-      onload.mock.calls.push(event);
-    };
-
-    onload.mock = {
-      /** @type {Event[]} */
-      calls: []
-    };
+    const onload = mock.fn();
 
     const event = new CustomEvent('load');
 
     eventTarget.onload = onload;
     eventTarget.dispatchEvent(event);
 
-    expect(onload.mock.calls).toEqual([event]);
+    expect(onload.mock.callCount()).toBe(1);
+    expect(onload.mock.calls[0].arguments).toEqual([event]);
   });
 });

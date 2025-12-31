@@ -1,4 +1,4 @@
-import { type TypedEventListener } from '../../src/index';
+import { type TypedEventListener } from './index.ts';
 
 const _1: TypedEventListener<CustomEvent<'load'>> = (_event: CustomEvent<'load'>) => {};
 
