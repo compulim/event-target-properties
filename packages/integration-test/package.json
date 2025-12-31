@@ -1,5 +1,5 @@
 {
-  "name": "event-target-properties-integration-test",
+  "name": "@compulim/integration-test",
   "version": "0.0.0-0",
   "description": "",
   "private": true,
