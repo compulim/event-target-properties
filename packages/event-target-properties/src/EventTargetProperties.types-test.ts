@@ -1,4 +1,4 @@
-import { EventTargetProperties } from '../../src/index';
+import { EventTargetProperties } from './index.ts';
 
 const attrs = new EventTargetProperties<
   'click' | 'load',

@@ -1,7 +1,7 @@
-/// <reference types="jest" />
-
-import EventTargetProperties from './EventTargetProperties';
-import { type TypedEventListener } from './TypedEventListener';
+import { expect } from 'expect';
+import { beforeEach, describe, mock, test, type Mock } from 'node:test';
+import EventTargetProperties from './EventTargetProperties.ts';
+import { type TypedEventListener } from './TypedEventListener.ts';
 
 class MyEventTarget extends EventTarget {
   constructor() {
@@ -21,11 +21,11 @@ class MyEventTarget extends EventTarget {
   }
 }
 
-let onload: jest.Mocked<(event: CustomEvent) => void>;
+let onload: Mock<(event: CustomEvent) => void>;
 let myEventTarget: MyEventTarget;
 
 beforeEach(() => {
-  onload = jest.fn();
+  onload = mock.fn();
   myEventTarget = new MyEventTarget();
 });
 
@@ -39,8 +39,8 @@ describe('after assign', () => {
 
     myEventTarget.dispatchEvent(event);
 
-    expect(onload).toHaveBeenCalledTimes(1);
-    expect(onload).toHaveBeenNthCalledWith(1, event);
+    expect(onload.mock.callCount()).toBe(1);
+    expect(onload.mock.calls[0]?.arguments).toEqual([event]);
   });
 
   describe('and unassign', () => {
@@ -53,7 +53,7 @@ describe('after assign', () => {
 
       myEventTarget.dispatchEvent(event);
 
-      expect(onload).toHaveBeenCalledTimes(0);
+      expect(onload.mock.callCount()).toBe(0);
     });
   });
 });
